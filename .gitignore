@@ -128,3 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .idea
+
+ingredients.csv
+ingredients.json
+db.json
+script_json.py
+
