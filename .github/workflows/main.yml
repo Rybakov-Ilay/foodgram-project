@@ -9,6 +9,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  flake8_check:
+    name: PEP8 check with flake8
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@main
+        - uses: actions/setup-python@v2
+          with:
+            python-version: '3.8'
+          - run: pip install flake8
+          - run: flake8 --exclude venv/,config/settings.py,recipes/migrations/
+
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
