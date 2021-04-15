@@ -56,3 +56,14 @@ jobs:
             cd foodgram-project
             sudo docker-compose pull
             sudo docker-compose up -d
+  send_message:
+    name: Send a message to telegram
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: send message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: ${{ github.workflow }} успешно выполнен!
