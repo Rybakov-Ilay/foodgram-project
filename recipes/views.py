@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import RecipeForm
 from .models import Purchase, Recipe, Tag
-from .utils import paginator_mixin, save_recipe, edit_recipe
+from .utils import edit_recipe, paginator_mixin, save_recipe
 
 User = get_user_model()
 
@@ -16,8 +16,8 @@ def index(request):
     if tags:
         recipes = (
             Recipe.objects.prefetch_related("author", "tags")
-                .filter(tags__slug__in=tags)
-                .distinct()
+            .filter(tags__slug__in=tags)
+            .distinct()
         )
     else:
         recipes = Recipe.objects.all()
@@ -40,9 +40,9 @@ def recipe_add(request):
     form = RecipeForm(request.POST or None, files=request.FILES or None)
 
     if form.is_valid():
-        recipe = save_recipe(request, form)
-        return redirect('index')
-    return render(request, 'recipes/formRecipe.html', {'form': form})
+        recipe = save_recipe(request, form)  # noqa
+        return redirect("index")
+    return render(request, "recipes/formRecipe.html", {"form": form})
 
 
 @login_required
@@ -50,20 +50,18 @@ def recipe_edit(request, pk):
     recipe = get_object_or_404(Recipe, id=pk)
 
     if request.user != recipe.author:
-        return redirect('recipe_view', recipe_id=pk)
+        return redirect("recipe_view", recipe_id=pk)
 
     form = RecipeForm(
-        request.POST or None,
-        files=request.FILES or None,
-        instance=recipe
+        request.POST or None, files=request.FILES or None, instance=recipe
     )
 
     if form.is_valid():
         edit_recipe(request, form, instance=recipe)
         return redirect("recipe_view", pk=pk)
 
-    context = {'form': form, 'recipe': recipe}
-    return render(request, 'recipes/formChangeRecipe.html', context)
+    context = {"form": form, "recipe": recipe}
+    return render(request, "recipes/formChangeRecipe.html", context)
 
 
 @login_required
@@ -91,9 +89,9 @@ def favorites(request):
     if tags:
         recipes = (
             Recipe.objects.filter(favorites__author=request.user)
-                .prefetch_related("author", "tags")
-                .filter(tags__slug__in=tags)
-                .distinct()
+            .prefetch_related("author", "tags")
+            .filter(tags__slug__in=tags)
+            .distinct()
         )
     else:
         recipes = Recipe.objects.filter(favorites__author=request.user)
@@ -110,8 +108,8 @@ def favorites(request):
 def subscriptions(request):
     authors = (
         User.objects.prefetch_related("recipe")
-            .filter(following__follower=request.user)
-            .annotate(recipe_ingredients=Count("recipe__id"))
+        .filter(following__follower=request.user)
+        .annotate(recipe_ingredients=Count("recipe__id"))
     )
     page, paginator = paginator_mixin(request, authors)
     return render(
@@ -142,10 +140,10 @@ def purchase_remove(request, recipe_id):
 def get_shoplist(request):
     ingredients = (
         Recipe.objects.prefetch_related("ingredients", "recipe_ingredients")
-            .filter(purchases__author=request.user)
-            .order_by("ingredients__name")
-            .values("ingredients__name", "ingredients__measure_unit")
-            .annotate(cnt=Sum("recipe_ingredients__cnt"))
+        .filter(purchases__author=request.user)
+        .order_by("ingredients__name")
+        .values("ingredients__name", "ingredients__measure_unit")
+        .annotate(cnt=Sum("recipe_ingredients__cnt"))
     )
 
     ingredient_txt = [
@@ -162,12 +160,12 @@ def get_shoplist(request):
 
 
 def page_bad_request(request, exception):
-    return render(request, 'misc/400.html', status=400)
+    return render(request, "misc/400.html", status=400)
 
 
 def page_not_found(request, exception):
-    return render(request, 'misc/404.html', {"path": request.path}, status=404)
+    return render(request, "misc/404.html", {"path": request.path}, status=404)
 
 
 def server_error(request):
-    return render(request, 'misc/500.html', status=500)
+    return render(request, "misc/500.html", status=500)

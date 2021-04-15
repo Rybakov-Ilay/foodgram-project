@@ -1,6 +1,6 @@
 from django import template
 
-from recipes.models import Favorite, Purchase, Subscribe, Recipe
+from recipes.models import Favorite, Purchase, Subscribe
 
 try:
     from django.urls import NoReverseMatch, reverse
@@ -16,7 +16,7 @@ def addclass(field, css):
 
 @register.filter
 def is_favorite(value, author):
-    return Favorite.objects.filter(recipe=value, author=author).exists()\
+    return Favorite.objects.filter(recipe=value, author=author).exists()
 
 
 @register.filter

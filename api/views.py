@@ -1,18 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-
 from rest_framework import filters, generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from recipes.models import Ingredient, Recipe, Favorite, Purchase, Subscribe
+from recipes.models import Favorite, Ingredient, Purchase, Recipe, Subscribe
 
-from .serializers import (
-    FavoriteSerializer,
-    IngredientSerializer,
-    PurchaseSerializer,
-    SubscribeSerializer,
-)
+from .serializers import (FavoriteSerializer, IngredientSerializer,
+                          PurchaseSerializer, SubscribeSerializer)
 
 User = get_user_model()
 

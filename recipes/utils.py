@@ -2,7 +2,7 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.core.paginator import Paginator
-from django.db import IntegrityError, transaction
+from django.db import transaction
 from django.shortcuts import get_object_or_404
 
 from .models import Ingredient, RecipeIngredient
@@ -19,9 +19,9 @@ def get_ingredients(request):
     ingredients = {}
     post = request.POST
     for key, name in post.items():
-        if key.startswith('nameIngredient'):
-            num = key.partition('_')[-1]
-            ingredients[name] = post[f'valueIngredient_{num}']
+        if key.startswith("nameIngredient"):
+            num = key.partition("_")[-1]
+            ingredients[name] = post[f"valueIngredient_{num}"]
     return ingredients
 
 
@@ -40,7 +40,7 @@ def save_recipe(request, form):
                 RecipeIngredient(
                     recipe=recipe,
                     ingredient=ingredient,
-                    cnt=Decimal(quantity.replace(',', '.'))
+                    cnt=Decimal(quantity.replace(",", ".")),
                 )
             )
 
