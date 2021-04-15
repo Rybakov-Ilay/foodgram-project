@@ -18,6 +18,8 @@ class Tag(TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+
 class Ingredient(TimeStampedModel):
     name = models.CharField(
         verbose_name="название",
