@@ -1,6 +1,6 @@
 # Foodgram
 
-![foodgram_workflow](https://github.com/Rybakov-Ilay/foodgram-project/actions/workflows/foodgram_workflow/badge.svg)
+![foodgram_workflow](https://github.com/Rybakov-Ilay/foodgram-project/workflows/foodgram_workflow/badge.svg)
 
 ## Проект развернут по адресу [http://130.193.54.57/](http://130.193.54.57/)
  Логин и пароль для теста
