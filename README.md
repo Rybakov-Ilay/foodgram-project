@@ -1,6 +1,6 @@
 # Foodgram
 
-![CI project](https://github.com/Rybakov-Ilay/foodgram-project/actions/workflows/main/badge.svg)
+![CI project](https://github.com/Rybakov-Ilay/foodgram-project/actions/workflows/CI_foodgram-project/badge.svg)
 
 ## Проект развернут по адресу [http://130.193.54.57/](http://130.193.54.57/)
  Логин и пароль для теста
