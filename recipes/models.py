@@ -37,7 +37,7 @@ class Ingredient(TimeStampedModel):
         verbose_name_plural = "ингредиенты"
 
     def __str__(self):
-        return self.name
+        return f"{self.name}, {self.measure_unit}"
 
 
 class Recipe(TimeStampedModel):
