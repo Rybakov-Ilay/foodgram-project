@@ -16,8 +16,3 @@ class RecipeForm(forms.ModelForm):
             "image": _("Выберите изображение для рецепта"),
             "cooking_time": _("Заполните время приготовления блюда"),
         }
-
-    # def clean(self):
-    #     if len(self.cleaned_data.get('title')) < 2:
-    #         raise forms.ValidationError('Придумайте название подлиннее')
-    #     return self.cleaned_data
