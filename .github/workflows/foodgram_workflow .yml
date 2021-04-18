@@ -1,4 +1,4 @@
-name: CI_foodgram-project
+name: foodgram_workflow
 
 on:
   push:
