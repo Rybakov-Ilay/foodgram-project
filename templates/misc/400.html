@@ -2,11 +2,11 @@
 
 {% block title %}
     Ошибка 400
-{%endblock %}
+{% endblock %}
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'pages/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/index.css' %}"/>
 {% endblock %}
 
 {% block content %}
@@ -14,13 +14,11 @@
         <h1 class="main__title">Ошибка 400</h1>
     </div>
     <div class="card-list">
-    <div class="custom-center-block">
-        <p class="custom-text-block">Элемент<code>{{ path }}</code> не найден</p>
-        <div class="custom-button-block">
-        <a href="{% url 'index' %}"
-            ><button class="button button_style_blue">Перейти на главную</button></a
-        >
+        <div class="custom-center-block">
+            <p class="custom-text-block">Элемент<code>{{ path }}</code> не найден</p>
+            <div class="custom-button-block">
+                <a class="button button_style_blue" href="{% url 'index' %}">Перейти на главную</a>
+            </div>
         </div>
-    </div>
     </div>
 {% endblock %}
