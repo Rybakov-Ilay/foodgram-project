@@ -38,9 +38,7 @@ class SubscribeViewSet(CreateResponseMixin, viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         author = get_object_or_404(User, pk=kwargs["pk"])
         subscribe = author.following.filter(follower=request.user)
-        if subscribe.delete():
-            return Response({"success": True})
-        return Response({"success": False})
+        return Response({"success": True if subscribe.delete() else False})
 
 
 class FavoriteViewSet(CreateResponseMixin, viewsets.ModelViewSet):
@@ -51,9 +49,7 @@ class FavoriteViewSet(CreateResponseMixin, viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         recipe = get_object_or_404(Recipe, pk=kwargs["pk"])
         favorite = recipe.favorites.filter(author=request.user)
-        if favorite.delete():
-            return Response({"success": True})
-        return Response({"success": False})
+        return Response({"success": True if favorite.delete() else False})
 
 
 class PurchaseViewSet(CreateResponseMixin, viewsets.ModelViewSet):
@@ -64,6 +60,4 @@ class PurchaseViewSet(CreateResponseMixin, viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         recipe = get_object_or_404(Recipe, pk=kwargs["pk"])
         purchase = recipe.purchases.filter(author=request.user)
-        if purchase.delete():
-            return Response({"success": True})
-        return Response({"success": False})
+        return Response({"success": True if purchase.delete() else False})

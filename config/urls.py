@@ -5,9 +5,9 @@ from django.contrib.flatpages import views
 from django.urls import include, path
 from django.conf.urls import handler404, handler500, handler400
 
-handler400 = 'recipes.views.page_bad_request'  # noqa
-handler404 = 'recipes.views.page_not_found'  # noqa
-handler500 = 'recipes.views.server_error'  # noqa
+handler400 = 'config.views.page_bad_request'  # noqa
+handler404 = 'config.views.page_not_found'  # noqa
+handler500 = 'config.views.server_error'  # noqa
 
 urlpatterns = [
     path("admin/", admin.site.urls),
