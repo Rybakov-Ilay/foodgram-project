@@ -4,13 +4,15 @@ from rest_framework.routers import DefaultRouter
 from api.views import (FavoriteViewSet, IngredientAPIView, PurchaseViewSet,
                        SubscribeViewSet)
 
-router = DefaultRouter()
+v1_router = DefaultRouter()
 
-router.register("favorites", FavoriteViewSet)
-router.register("purchases", PurchaseViewSet)
-router.register("subscriptions", SubscribeViewSet)
+v1_router.register("favorites", FavoriteViewSet)
+v1_router.register("purchases", PurchaseViewSet)
+v1_router.register("subscriptions", SubscribeViewSet)
+
+v1_urlpatterns = [path("ingredients/", IngredientAPIView.as_view())]
 
 urlpatterns = [
-    path("", include(router.urls)),
-    path("ingredients/", IngredientAPIView.as_view()),
+    path("v1/", include(v1_router.urls)),
+    path("v1/", include(v1_urlpatterns)),
 ]
