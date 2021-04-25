@@ -101,10 +101,10 @@
                         {% if not create %}
                             {% for ingredient in recipe.recipe_ingredients.all %}
                             <div class="form__field-item-ingredient" id="ing_{{ forloop.counter }}">
-                                <span> {{ ingredient.ingredient.name }} - {{ ingredient.cnt }}  {{ ingredient.ingredient.measure_unit }}</span>
+                                <span> {{ ingredient.ingredient.name }} - {{ ingredient.amount }}  {{ ingredient.ingredient.measure_unit }}</span>
                                 <span class="form__field-item-delete"></span>
                                 <input id="nameIngredient_{{ forloop.counter }}" name="nameIngredient_{{ forloop.counter }}" type="hidden" value="{{ ingredient.ingredient.name }}" onclick="ingredient.delete">
-                                <input id="valueIngredient_{{ forloop.counter }}" name="valueIngredient_{{ forloop.counter }}" type="hidden" value="{{ ingredient.cnt }}">
+                                <input id="valueIngredient_{{ forloop.counter }}" name="valueIngredient_{{ forloop.counter }}" type="hidden" value="{{ ingredient.amount }}">
                                 <input id="unitsIngredient_{{ forloop.counter }}" name="unitsIngredient_{{ forloop.counter }}" type="hidden" value="{{ ingredient.ingredient.measure_unit }}">
                             </div>
                             {% endfor %}

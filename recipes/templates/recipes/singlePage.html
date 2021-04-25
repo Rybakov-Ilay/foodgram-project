@@ -66,7 +66,7 @@
                     {% for ingredient in recipe.recipe_ingredients.all %}
                         <p class="single-card__section-item">
                             {{ ingredient.ingredient.name }}
-                            - {{ ingredient.cnt }} {{ ingredient.ingredient.measure_unit }}.
+                            - {{ ingredient.amount }} {{ ingredient.ingredient.measure_unit }}.
                         </p>
                     {% endfor %}
                 </div>

@@ -102,9 +102,9 @@ def favorites(request):
 @login_required
 def subscriptions(request):
     authors = (
-        User.objects.prefetch_related("recipe")
+        User.objects.prefetch_related("recipes")
         .filter(following__follower=request.user)
-        .annotate(recipe_ingredients=Count("recipe__id"))
+        .annotate(recipe_ingredients=Count("recipes__id"))
     )
     page, paginator = paginator_mixin(request, authors)
     return render(
@@ -138,7 +138,7 @@ def get_shoplist(request):
         .filter(purchases__author=request.user)
         .order_by("ingredients__name")
         .values("ingredients__name", "ingredients__measure_unit")
-        .annotate(cnt=Sum("recipe_ingredients__cnt"))
+        .annotate(cnt=Sum("recipe_ingredients__amount"))
     )
 
     ingredient_txt = [

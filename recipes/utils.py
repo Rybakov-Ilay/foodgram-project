@@ -38,7 +38,7 @@ def save_recipe(request, form):
             RecipeIngredient(
                 recipe=recipe,
                 ingredient=ingredient,
-                cnt=Decimal(quantity.replace(",", ".")),
+                amount=Decimal(quantity.replace(",", ".")),
             )
         )
 

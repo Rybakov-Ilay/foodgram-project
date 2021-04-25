@@ -51,14 +51,14 @@ class Recipe(TimeStampedModel):
         verbose_name="картинка",
         upload_to="upload"
     )
-    cooking_time = models.IntegerField(
-        verbose_name="время приготовления в минутах"
+    cooking_time = models.PositiveSmallIntegerField(
+        verbose_name="время приготовления в минутах",
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         verbose_name="автор",
-        related_name="recipe",
+        related_name="recipes",
         db_index=True,
     )
     ingredients = models.ManyToManyField(
@@ -88,7 +88,11 @@ class RecipeIngredient(models.Model):
         verbose_name="ингредиент",
         on_delete=models.CASCADE
     )
-    cnt = models.IntegerField(verbose_name="количество")
+    amount = models.PositiveSmallIntegerField(
+        verbose_name="количество",
+        null=False,
+        default=10,
+    )
     created = AutoCreatedField(verbose_name="дата создания")
 
     class Meta:
