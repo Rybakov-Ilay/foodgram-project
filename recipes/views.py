@@ -29,12 +29,17 @@ def recipe_view(request, pk):
 
 @login_required
 def recipe_add(request):
+    create = True
     form = RecipeForm(request.POST or None, files=request.FILES or None)
 
     if form.is_valid():
         recipe = save_recipe(request, form)  # noqa
         return redirect("index")
-    return render(request, "recipes/formRecipe.html", {"form": form})
+    return render(
+        request,
+        "recipes/formChangeRecipe.html",
+        {"form": form, "create": create}
+    )
 
 
 @login_required
