@@ -6,22 +6,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import RecipeForm
 from .models import Purchase, Recipe, Tag
-from .utils import edit_recipe, paginator_mixin, save_recipe
+from .utils import edit_recipe, paginator_mixin, save_recipe, filter_recipes_by_tag
 
 User = get_user_model()
 
 
 def index(request):
-    tags = request.GET.getlist("tags")
-    if tags:
-        recipes = (
-            Recipe.objects.prefetch_related("author", "tags")
-            .filter(tags__slug__in=tags)
-            .distinct()
-        )
-    else:
-        recipes = Recipe.objects.all()
-    all_tags = Tag.objects.all()
+    recipes, all_tags = filter_recipes_by_tag(request)
     page, paginator = paginator_mixin(request, recipes)
     return render(
         request,
@@ -74,29 +65,22 @@ def recipe_remove(request, pk):
 
 
 def profile(request, username):
-    recipes = Recipe.objects.filter(author__username=username)
-    page, paginator = paginator_mixin(request, recipes)
+    recipes, all_tags = filter_recipes_by_tag(request)
+    recipes_list = recipes.filter(author__username=username)
+    author = get_object_or_404(User, username=username)
+    page, paginator = paginator_mixin(request, recipes_list)
     return render(
         request,
         "recipes/authorRecipe.html",
-        {"page": page, "paginator": paginator}
+        {"page": page, "paginator": paginator, "all_tags": all_tags, "author": author }
     )
 
 
 @login_required
 def favorites(request):
-    tags = request.GET.getlist("tags")
-    if tags:
-        recipes = (
-            Recipe.objects.filter(favorites__author=request.user)
-            .prefetch_related("author", "tags")
-            .filter(tags__slug__in=tags)
-            .distinct()
-        )
-    else:
-        recipes = Recipe.objects.filter(favorites__author=request.user)
-    all_tags = Tag.objects.all()
-    page, paginator = paginator_mixin(request, recipes)
+    recipes, all_tags = filter_recipes_by_tag(request)
+    recipes_list = recipes.filter(favorites__author=request.user)
+    page, paginator = paginator_mixin(request, recipes_list)
     return render(
         request,
         "recipes/favorite.html",

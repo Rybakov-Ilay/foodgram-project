@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 
-from .models import Ingredient, RecipeIngredient
+from .models import Ingredient, RecipeIngredient, Recipe, Tag
 
 
 def paginator_mixin(request, queryset):
@@ -50,3 +50,17 @@ def save_recipe(request, form):
 def edit_recipe(request, form, instance):
     RecipeIngredient.objects.filter(recipe=instance).delete()
     return save_recipe(request, form)
+
+
+def filter_recipes_by_tag(request):
+    tags = request.GET.getlist("tags")
+    if tags:
+        recipes = (
+            Recipe.objects.prefetch_related("author", "tags")
+            .filter(tags__slug__in=tags)
+            .distinct()
+        )
+    else:
+        recipes = Recipe.objects.all()
+    all_tags = Tag.objects.all()
+    return recipes, all_tags
