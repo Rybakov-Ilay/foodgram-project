@@ -5,8 +5,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import RecipeForm
-from .models import Purchase, Recipe, Tag
-from .utils import edit_recipe, paginator_mixin, save_recipe, filter_recipes_by_tag
+from .models import Purchase, Recipe
+from .utils import (edit_recipe, paginator_mixin,
+                    save_recipe, filter_recipes_by_tag)
 
 User = get_user_model()
 
@@ -72,7 +73,12 @@ def profile(request, username):
     return render(
         request,
         "recipes/authorRecipe.html",
-        {"page": page, "paginator": paginator, "all_tags": all_tags, "author": author }
+        {
+            "page": page,
+            "paginator": paginator,
+            "all_tags": all_tags,
+            "author": author
+        }
     )
 
 
