@@ -27,7 +27,7 @@
         </div>
         <div class="card-user__body">
             <ul class="card-user__items">
-                {% for recipe in author.recipe.all %}
+                {% for recipe in author.recipes.all %}
                     {% if forloop.counter < 4 %}
                     <li class="card-user__item">
                         <div class="recipe">
