@@ -67,6 +67,7 @@ jobs:
             cd foodgram-project
             sudo docker-compose pull
             sudo docker-compose up -d
+            sudo docker image prune -f
   send_message:
     name: Send a message to telegram
     runs-on: ubuntu-latest
