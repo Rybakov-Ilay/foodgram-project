@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import RecipeForm
 from .models import Purchase, Recipe
-from .utils import (edit_recipe, paginator_mixin,
-                    save_recipe, filter_recipes_by_tag)
+from .utils import (edit_recipe, filter_recipes_by_tag, paginator_mixin,
+                    save_recipe)
 
 User = get_user_model()
 
