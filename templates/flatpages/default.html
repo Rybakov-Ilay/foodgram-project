@@ -6,12 +6,14 @@
 
 {% load static %}
 {% block css %}
-    <link rel="stylesheet" href="{% static 'pages/index.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/index.css' %}"/>
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>{{ flatpage.title }}</h1>
-        {{ flatpage.content }}
+        <span class="card__text" >
+            <h1>{{ flatpage.title }}</h1>
+            {{ flatpage.content }}
+        </span>
     </div>
 {% endblock %}
