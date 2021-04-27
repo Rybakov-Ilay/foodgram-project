@@ -135,3 +135,4 @@ db.json
 script_json.py
 static
 media
+sent_emails/*.log
