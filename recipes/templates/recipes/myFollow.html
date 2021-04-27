@@ -49,8 +49,10 @@
         </div>
 
         <div class="card-user__footer">
-
-            <button class="button button_style_light-blue button_size_auto" name="subscribe" onClick="refreshPage()">Отписаться</button>
+            <script>
+                function refreshPage(){window.location.reload();}
+            </script>
+            <button class="button button_style_light-blue button_size_auto" name="subscribe" onclick="refreshPage()">Отписаться</button>
         </div>
         </div>
         {% endfor %}
