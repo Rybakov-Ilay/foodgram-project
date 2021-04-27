@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
+from config.views import page_bad_request
 from .forms import RecipeForm
 from .models import Purchase, Recipe
 from .utils import (edit_recipe, filter_recipes_by_tag, paginator_mixin,
@@ -34,6 +36,8 @@ def recipe_add(request):
 
     if form.is_valid():
         recipe = save_recipe(request, form)  # noqa
+        if recipe == 400:
+            return page_bad_request(request, IntegrityError)
         return redirect("index")
     return render(
         request,
@@ -54,7 +58,9 @@ def recipe_edit(request, pk):
     )
 
     if form.is_valid():
-        edit_recipe(request, form, instance=recipe)
+        res = edit_recipe(request, form, instance=recipe)
+        if res == 400:
+            return page_bad_request(request, IntegrityError)
         return redirect("recipe_view", pk=pk)
 
     context = {"form": form, "recipe": recipe}
