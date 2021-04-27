@@ -49,10 +49,15 @@
         </div>
 
         <div class="card-user__footer">
-            <script>
-                function refreshPage(){window.location.reload();}
-            </script>
-            <button class="button button_style_light-blue button_size_auto" name="subscribe" onclick="refreshPage()">Отписаться</button>
+                {% if not author.id|is_subscribe:user %}
+                    <button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>
+                        Подписаться на автора
+                    </button>
+                {% else %}
+                    <button class="button button_style_light-blue button_size_subscribe button_style_blue" name="subscribe">
+                        Отписаться от автора
+                    </button>
+                {% endif %}
         </div>
         </div>
         {% endfor %}
